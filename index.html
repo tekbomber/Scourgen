@@ -1497,25 +1497,11 @@ const AU = {
       this.wasHot = false;
       if (ph === 0) [38, 50, 57, 63].forEach((m, k) => this.pad(mtof(m), t0 + k * .05, bar * 4));
       if (i % 2 === 0) this.osc('sine', 41, t0, st * 3, .4, { dest: this.mus, atk: .01, to: 36 });
-      if (i % 4 === 2) this.tom(t0 + 8 * st, 62, .6);
       if (i % 8 === 0) { this.osc('sine', mtof(81), t0, bar * 3, .035, { dest: this.mus, rev: .9, atk: 1.8, det: 12 }); this.osc('sine', mtof(87), t0, bar * 3, .03, { dest: this.mus, rev: .9, atk: 1.8, det: -12 }); }
       if (i % 6 === 5 && Math.random() < .7) this.osc('sine', mtof(pick([93, 96, 99])), t0 + Math.random() * bar * .7, 2.4, .02, { dest: this.mus, rev: 1, atk: .9, to: mtof(88) });
       return;
     }
-    if (!this.wasHot) { this.wasHot = true; this.crash(t0, 1.1); [0, 2, 4, 6].forEach((sv, k) => { this.tom(t0 + sv * st, 170 - k * 28, 1); this.kick(t0 + sv * st, .65); }); }   // drums SLAM back in when enemies appear
-    // HEAVY GROOVE: palm-muted riff locked to the kick, half-time snare, driving 8th hats (D minor / phrygian, 3-3-2 chugs)
-    const RIFF = [
-      [[0, 38], [3, 38], [6, 38], [8, 38], [11, 41], [14, 39]],                                   // D D D D F Eb
-      [[0, 38], [3, 38], [6, 38], [8, 38], [11, 38], [14, 41]],                                   // D D D D D F
-      [[0, 46], [3, 46], [6, 46], [8, 45], [11, 45], [14, 43]],                                   // Bb Bb Bb A A G (sinking)
-      [[0, 45], [2, 45], [3, 45], [4, 45], [6, 45], [7, 45], [8, 43], [10, 43], [11, 43]]         // gallop up to the fill
-    ][ph];
-    for (const [s, m] of RIFF) { this.chug(m, t0 + s * st, st * 1.7, s === 0 ? 1.05 : .92); this.kick(t0 + s * st, s === 0 ? .95 : .85); }
-    if (d > .45 && ph !== 3) for (const s of [2, 5, 10, 13]) this.kick(t0 + s * st, .5);             // double-kick gallop creeps in as danger rises
-    this.snare(t0 + 8 * st, .85);                                                                // half-time backbeat: big hit on beat 3
-    if (ph === 3) { this.snare(t0 + 4 * st, .55); [12, 13, 14, 15].forEach((s, k) => this.tom(t0 + s * st, 150 - k * 24, .95)); }   // fill into the next phrase
-    for (let s = 0; s < 16; s += 2) this.hat(t0 + s * st, (s % 4 === 0 ? .8 : .5) * hi, ph !== 3 && s === 14 && ph % 2 === 0);
-    if (ph === 0 && i > 0) this.crash(t0, .8);
+    this.wasHot = true;                                // v7: drums + riff removed - synth pads, drones and risers only
     // atmospheric eerie synths: static cold clusters, no melody
     if (ph === 0) [38, 50, 57, 63].forEach((m, k) => this.pad(mtof(m), t0 + k * .05, bar * 4));
     if (i % 8 === 0) { this.osc('sine', mtof(81), t0, bar * 3, .035, { dest: this.mus, rev: .9, atk: 1.8, det: 12 }); this.osc('sine', mtof(87), t0, bar * 3, .03, { dest: this.mus, rev: .9, atk: 1.8, det: -12 }); }
